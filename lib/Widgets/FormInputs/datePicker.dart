@@ -27,8 +27,9 @@ class DatePicker extends StatelessWidget {
               lastDate: DateTime(2024)
           );
           if(pickedDate != null ){
+            String formattedDate = pickedDate.year.toString() + "-" + (pickedDate.month < 10 ? "0" + pickedDate.month.toString() : pickedDate.month.toString()) + "-" + (pickedDate.day < 10 ? "0" + pickedDate.day.toString() : pickedDate.day.toString());
             //String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-            controller.text = pickedDate.toString();
+            controller.text = formattedDate;
           }
         },
       ),

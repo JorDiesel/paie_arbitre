@@ -26,9 +26,9 @@ class HourPicker extends StatelessWidget {
               initialTime: TimeOfDay.now()
           );
           if(pickedHour != null ){
-            //String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+            String formattedDate = pickedHour.hour.toString() + "h" + (pickedHour.minute < 10 ? "0" + pickedHour.minute.toString() : pickedHour.minute.toString());
             //String formatTime = TimeOfDayFormat("HH:mm").format(pickedHour);
-            controller.text = pickedHour.toString();
+            controller.text = formattedDate;
           }
         },
       ),

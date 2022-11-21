@@ -36,6 +36,7 @@ class _Insert extends State<Insert> {
             const CustomDivider(),
             const TextWidget(text: "Ajouter des matchs"),
             const CustomDivider(),
+            Spacer(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
@@ -44,6 +45,7 @@ class _Insert extends State<Insert> {
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
+            Spacer(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
@@ -52,6 +54,7 @@ class _Insert extends State<Insert> {
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
+            Spacer(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
@@ -60,6 +63,7 @@ class _Insert extends State<Insert> {
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
+            Spacer(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
@@ -68,6 +72,7 @@ class _Insert extends State<Insert> {
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
+            Spacer(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
@@ -76,6 +81,7 @@ class _Insert extends State<Insert> {
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
+            Spacer(),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
@@ -84,6 +90,7 @@ class _Insert extends State<Insert> {
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
+            Spacer(),
             CustomDivider(),
             Padding(padding: EdgeInsets.all(5.0)),
             TextButton(
@@ -95,7 +102,9 @@ class _Insert extends State<Insert> {
                     side: const BorderSide(color: Colors.black, width: 2)
                 ),
               ),
-              onPressed: () {print(categorieController.text);},
+              onPressed: () {
+                clearData();
+              },
               child: const Text("Soumettre", style: TextStyle(color: Colors.black, fontSize: 20.0)),
             ),
             Padding(padding: EdgeInsets.all(5.0)),
@@ -118,5 +127,14 @@ class _Insert extends State<Insert> {
           ],
         )
       );
+  }
+
+  void clearData(){
+    dateController.clear();
+    matchController.clear();
+    categorieController.clear();
+    villeController.clear();
+    heureController.clear();
+    posteController.clear();
   }
 }

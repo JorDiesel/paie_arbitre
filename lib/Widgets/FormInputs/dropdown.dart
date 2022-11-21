@@ -12,25 +12,26 @@ class DropdownButtonWidget extends StatefulWidget {
 }
 
 class _DropdownButtonExampleState extends State<DropdownButtonWidget> {
-  String dropdownValue = "";
 
+  String? dropdownValue;
 
   @override
   Widget build(BuildContext context) {
-    dropdownValue = widget.listType.first;
     return DropdownButton<String>(
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
       style: const TextStyle(color: Colors.deepPurple),
+      hint: Text("Sélectionner une valeur"),
       underline: Container(
         height: 2,
         color: Colors.deepPurpleAccent,
       ),
       onChanged: (String? value) {
+        dropdownValue = value!;
+        widget.controleur.text = dropdownValue!;
         setState(() {
-          dropdownValue = value!;
-          widget.controleur.text = dropdownValue;
+          dropdownValue;
         });
       },
       items: widget.listType.map<DropdownMenuItem<String>>((String value) {
