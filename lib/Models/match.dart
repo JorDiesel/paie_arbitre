@@ -6,7 +6,8 @@ class MatchModel{
   final String classification;
   final String typeArbitre;
   final String ville;
-  final DateTime dateEtHeure;
+  final String date;
+  final String heure;
 
   const MatchModel({
     required this.id,
@@ -15,6 +16,7 @@ class MatchModel{
     required this.classification,
     required this.typeArbitre,
     required this.ville,
-    required this.dateEtHeure
+    required this.date,
+    required this.heure
   });
 }

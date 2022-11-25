@@ -12,6 +12,7 @@ class DatePicker extends StatelessWidget {
         controller: controller,
         readOnly: true,
         decoration: const InputDecoration(
+          hintText: "Sélectionnez une date",
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.yellowAccent),
           ),
@@ -28,7 +29,6 @@ class DatePicker extends StatelessWidget {
           );
           if(pickedDate != null ){
             String formattedDate = pickedDate.year.toString() + "-" + (pickedDate.month < 10 ? "0" + pickedDate.month.toString() : pickedDate.month.toString()) + "-" + (pickedDate.day < 10 ? "0" + pickedDate.day.toString() : pickedDate.day.toString());
-            //String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
             controller.text = formattedDate;
           }
         },

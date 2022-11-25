@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/dropdown.dart';
+import 'package:paie_arbitre/Widgets/Button/buttonBack.dart';
 import 'package:paie_arbitre/Widgets/divider.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/numericWidget.dart';
 import '../Widgets/FormInputs/datePicker.dart';
@@ -108,18 +109,7 @@ class _Insert extends State<Insert> {
               child: const Text("Soumettre", style: TextStyle(color: Colors.black, fontSize: 20.0)),
             ),
             Padding(padding: EdgeInsets.all(5.0)),
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Colors.yellowAccent,
-                minimumSize: Size(MediaQuery.of(context).size.height * (1/3) , 75),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0),
-                    side: const BorderSide(color: Colors.black, width: 2)
-                ),
-              ),
-              onPressed: () {Navigator.pop(context);},
-              child: Text("Retour", style: const TextStyle(color: Colors.black, fontSize: 20.0)),
-            ),
+            ButtonBack(pageContext: context),
             Padding(padding: EdgeInsets.all(5.0)),
             //Spacer(),
             CustomDivider(),
@@ -132,9 +122,6 @@ class _Insert extends State<Insert> {
   void clearData(){
     dateController.clear();
     matchController.clear();
-    categorieController.clear();
-    villeController.clear();
     heureController.clear();
-    posteController.clear();
   }
 }

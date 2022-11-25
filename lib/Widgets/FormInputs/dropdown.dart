@@ -21,11 +21,11 @@ class _DropdownButtonExampleState extends State<DropdownButtonWidget> {
       value: dropdownValue,
       icon: const Icon(Icons.arrow_downward),
       elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
+      style: const TextStyle(color: Colors.black),
       hint: Text("Sélectionner une valeur"),
       underline: Container(
         height: 2,
-        color: Colors.deepPurpleAccent,
+        color: Colors.yellowAccent,
       ),
       onChanged: (String? value) {
         dropdownValue = value!;
