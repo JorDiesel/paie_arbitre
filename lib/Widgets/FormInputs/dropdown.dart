@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:paie_arbitre/Models/dropdownModel.dart';
 
 class DropdownButtonWidget extends StatefulWidget {
 
-  final List<String> listType;
+  final List<DropdownModel> listType;
   final TextEditingController controleur;
 
   const DropdownButtonWidget({required this.listType, required this.controleur ,super.key});
@@ -34,10 +35,10 @@ class _DropdownButtonExampleState extends State<DropdownButtonWidget> {
           dropdownValue;
         });
       },
-      items: widget.listType.map<DropdownMenuItem<String>>((String value) {
+      items: widget.listType.map<DropdownMenuItem<String>>((DropdownModel value) {
         return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+          value: value.id.toString(),
+          child: Text(value.nom),
         );
       }).toList(),
     );

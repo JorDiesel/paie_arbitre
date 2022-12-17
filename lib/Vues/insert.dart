@@ -3,6 +3,8 @@ import 'package:paie_arbitre/Widgets/FormInputs/dropdown.dart';
 import 'package:paie_arbitre/Widgets/Button/buttonBack.dart';
 import 'package:paie_arbitre/Widgets/divider.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/numericWidget.dart';
+import '../Models/dropdownModel.dart';
+import '../SqLite/sqlite.dart';
 import '../Widgets/FormInputs/datePicker.dart';
 import '../Widgets/FormInputs/hourPicker.dart';
 import '../Widgets/FormInputs/textForm.dart';
@@ -23,9 +25,7 @@ class _Insert extends State<Insert> {
   TextEditingController villeController = new TextEditingController();
   TextEditingController heureController = new TextEditingController();
   TextEditingController posteController = new TextEditingController();
-  List<String> listCategorie = <String>["Novice", "Atome", "Peewee", "Bantam", "Midget", "Junior"];
-  List<String> listVille = <String>["Warwick", "Kingsey Falls", "Val-des-Sources"];
-  List<String> listPoste = <String>["À deux", "Juge de ligne", "Arbitre chef"];
+  TextEditingController tarifController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,17 @@ class _Insert extends State<Insert> {
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
                 TextForm(text: "Catégorie : "),
-                DropdownButtonWidget(listType: listCategorie, controleur: categorieController,),
+                FutureBuilder<List<DropdownModel>>(
+                    future: Sqlite.getCategories(),
+                    builder: (BuildContext context, AsyncSnapshot<List<DropdownModel>> snapshot){
+                      if (snapshot.hasData) {
+                        return DropdownButtonWidget(listType: snapshot.data! , controleur: categorieController);
+                      }
+                      else{
+                        return Text("fuck");
+                      }
+                    }
+                ),
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
@@ -69,7 +79,17 @@ class _Insert extends State<Insert> {
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
                 TextForm(text: "Ville : "),
-                DropdownButtonWidget(listType: listVille, controleur: villeController,),
+                FutureBuilder<List<DropdownModel>>(
+                    future: Sqlite.getVilles(),
+                    builder: (BuildContext context, AsyncSnapshot<List<DropdownModel>> snapshot){
+                      if (snapshot.hasData) {
+                        return DropdownButtonWidget(listType: snapshot.data! , controleur: villeController);
+                      }
+                      else{
+                        return Text("fuck");
+                      }
+                    }
+                ),
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
@@ -87,7 +107,26 @@ class _Insert extends State<Insert> {
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
                 TextForm(text: "Poste : "),
-                DropdownButtonWidget(listType: listPoste, controleur: posteController,),
+                FutureBuilder<List<DropdownModel>>(
+                    future: Sqlite.getPostes(),
+                    builder: (BuildContext context, AsyncSnapshot<List<DropdownModel>> snapshot){
+                      if (snapshot.hasData) {
+                        return DropdownButtonWidget(listType: snapshot.data! , controleur: posteController);
+                      }
+                      else{
+                        return Text("fuck");
+                      }
+                    }
+                ),
+                Padding(padding: EdgeInsets.all(10.0)),
+              ],
+            ),
+            Spacer(),
+            Row(
+              children: [
+                Padding(padding: EdgeInsets.all(10.0)),
+                TextForm(text: "Tarif : "),
+                NumericWidget(controller: tarifController,),
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
@@ -104,6 +143,7 @@ class _Insert extends State<Insert> {
                 ),
               ),
               onPressed: () {
+                Sqlite.createMatch(dateController.text, int.parse(villeController.text), int.parse(matchController.text) , int.parse(categorieController.text), heureController.text, int.parse(posteController.text), int.parse(tarifController.text));
                 clearData();
               },
               child: const Text("Soumettre", style: TextStyle(color: Colors.black, fontSize: 20.0)),
@@ -120,8 +160,8 @@ class _Insert extends State<Insert> {
   }
 
   void clearData(){
-    dateController.clear();
     matchController.clear();
     heureController.clear();
+    tarifController.clear();
   }
 }

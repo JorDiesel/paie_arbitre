@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paie_arbitre/SqLite/sqlite.dart';
 import 'package:paie_arbitre/Vues/update.dart';
 import 'package:paie_arbitre/Widgets/Button/buttonBack.dart';
 import 'package:paie_arbitre/Widgets/Button/buttonNavigation.dart';
@@ -8,8 +9,8 @@ import '../Models/match.dart';
 import '../Widgets/textTitle.dart';
 
 class DetailMatch extends StatelessWidget{
-  //final MatchModel? model;
-  const DetailMatch({super.key});
+  final MatchModel? model;
+  const DetailMatch({required this.model, super.key});
 
   @override
   Widget build(BuildContext context){
@@ -19,7 +20,7 @@ class DetailMatch extends StatelessWidget{
         children: [
           const Padding(padding: EdgeInsets.only(top: 50.0)),
           const CustomDivider(),
-          const TextWidget(text: "Match # 1234"),
+          TextWidget(text: "Match # " + model!.numeromatch.toString()),
           const CustomDivider(),
           Spacer(),
           Row(
@@ -27,7 +28,7 @@ class DetailMatch extends StatelessWidget{
               Spacer(),
               TextForm(text: "Ville : "),
               Spacer(),
-              TextForm(text: "Ville"),
+              TextForm(text: model!.ville),
               Spacer()
             ],
           ),
@@ -37,7 +38,7 @@ class DetailMatch extends StatelessWidget{
               Spacer(),
               TextForm(text: "Heure : "),
               Spacer(),
-              TextForm(text: "Heure"),
+              TextForm(text: model!.heure),
               Spacer()
             ],
           ),
@@ -47,7 +48,7 @@ class DetailMatch extends StatelessWidget{
               Spacer(),
               TextForm(text: "Catégorie : "),
               Spacer(),
-              TextForm(text: "Catégorie"),
+              TextForm(text: model!.categorie),
               Spacer()
             ],
           ),
@@ -57,7 +58,7 @@ class DetailMatch extends StatelessWidget{
               Spacer(),
               TextForm(text: "Poste : "),
               Spacer(),
-              TextForm(text: "Poste"),
+              TextForm(text: model!.poste),
               Spacer()
             ],
           ),
@@ -67,7 +68,7 @@ class DetailMatch extends StatelessWidget{
               Spacer(),
               TextForm(text: "Tarif : "),
               Spacer(),
-              TextForm(text: "Tarif"),
+              TextForm(text: model!.tarif.toString() + "\$"),
               Spacer()
             ],
           ),
@@ -75,7 +76,7 @@ class DetailMatch extends StatelessWidget{
           CustomDivider(),
           Padding(padding: EdgeInsets.all(5.0)),
           //Button update
-          ButtonNavigation(text: "Modifier", color: Colors.green, direction: Update()),
+          ButtonNavigation(text: "Modifier", color: Colors.green, direction: Update(model: model)),
           Padding(padding: EdgeInsets.all(5.0)),
           //Button delete
           TextButton(
@@ -87,23 +88,10 @@ class DetailMatch extends StatelessWidget{
                 side: const BorderSide(color: Colors.black, width: 2)
               ),
             ),
-            onPressed: () => showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Confirmer la suppression'),
-                content: const Text('Êtes-vous certain de vouloir supprimer le match numéro 1234?'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'Annuler'),
-                    child: const Text('Annuler'),
-                  ),
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'Oui'),
-                    child: const Text('Oui'),
-                  ),
-                ],
-              ),
-            ),
+            onPressed: (){
+              Sqlite.deleteMatch(model!.id);
+              Navigator.pop(context);
+            },
             child: Text("Supprimer", style: const TextStyle(color: Colors.black, fontSize: 20.0)),
           ),
           Padding(padding: EdgeInsets.all(5.0)),

@@ -1,22 +1,22 @@
 
 class MatchModel{
   final int id;
-  final int numeroMatch;
-  final String categorie;
-  final String classification;
-  final String typeArbitre;
-  final String ville;
   final String date;
+  final String ville;
+  final int numeromatch;
+  final String categorie;
   final String heure;
+  final String poste;
+  final int tarif;
 
   const MatchModel({
     required this.id,
-    required this.numeroMatch,
-    required this.categorie,
-    required this.classification,
-    required this.typeArbitre,
-    required this.ville,
     required this.date,
-    required this.heure
+    required this.ville,
+    required this.numeromatch,
+    required this.categorie,
+    required this.heure,
+    required this.poste,
+    required this.tarif
   });
 }

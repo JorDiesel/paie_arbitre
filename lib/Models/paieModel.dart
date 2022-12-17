@@ -4,7 +4,7 @@ import 'dart:ffi';
 class PaieModel{
   final int id;
   final String date;
-  final Float montant;
+  final double montant;
 
   const PaieModel({
     required this.id,

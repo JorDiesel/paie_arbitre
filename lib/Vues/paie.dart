@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:paie_arbitre/SqLite/sqlite.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/datePicker.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/numericWidget.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/textForm.dart';
@@ -71,7 +72,10 @@ class _Paie extends State<Paie> {
                   side: const BorderSide(color: Colors.black, width: 2)
               ),
             ),
-            onPressed: () {Navigator.pop(context);},
+            onPressed: () {
+              Sqlite.createPaie(double.parse(montantController.text), dateController.text);
+              Navigator.pop(context);
+              },
             child: const Text("Soumettre", style: TextStyle(color: Colors.black, fontSize: 20.0)),
           ),
           Padding(padding: EdgeInsets.all(5.0)),

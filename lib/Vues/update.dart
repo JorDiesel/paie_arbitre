@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:paie_arbitre/Widgets/FormInputs/dropdown.dart';
+import 'package:paie_arbitre/Models/match.dart';
 import 'package:paie_arbitre/Widgets/Button/buttonBack.dart';
 import 'package:paie_arbitre/Widgets/divider.dart';
 import 'package:paie_arbitre/Widgets/FormInputs/numericWidget.dart';
+import '../SqLite/sqlite.dart';
 import '../Widgets/FormInputs/datePicker.dart';
 import '../Widgets/FormInputs/hourPicker.dart';
 import '../Widgets/FormInputs/textForm.dart';
 import '../Widgets/textTitle.dart';
 
-class Update extends StatefulWidget {
-  const Update({super.key});
+class Update extends StatelessWidget {
+  final MatchModel? model;
 
-  @override
-  State<Update> createState() => _Update();
-}
-
-class _Update extends State<Update> {
+  Update({required this.model, super.key});
 
   TextEditingController dateController = new TextEditingController();
   TextEditingController matchController = new TextEditingController();
-  TextEditingController categorieController = new TextEditingController();
-  TextEditingController villeController = new TextEditingController();
   TextEditingController heureController = new TextEditingController();
-  TextEditingController posteController = new TextEditingController();
-  List<String> listCategorie = <String>["Novice", "Atome", "Peewee", "Bantam", "Midget", "Junior"];
-  List<String> listVille = <String>["Warwick", "Kingsey Falls", "Val-des-Sources"];
-  List<String> listPoste = <String>["À deux", "Juge de ligne", "Arbitre chef"];
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Column(
@@ -59,35 +51,8 @@ class _Update extends State<Update> {
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(10.0)),
-                TextForm(text: "Catégorie : "),
-                DropdownButtonWidget(listType: listCategorie, controleur: categorieController,),
-                Padding(padding: EdgeInsets.all(10.0)),
-              ],
-            ),
-            Spacer(),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.all(10.0)),
-                TextForm(text: "Ville : "),
-                DropdownButtonWidget(listType: listVille, controleur: villeController,),
-                Padding(padding: EdgeInsets.all(10.0)),
-              ],
-            ),
-            Spacer(),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.all(10.0)),
                 TextForm(text: "Heure : "),
                 HourPicker(controller: heureController,),
-                Padding(padding: EdgeInsets.all(10.0)),
-              ],
-            ),
-            Spacer(),
-            Row(
-              children: [
-                Padding(padding: EdgeInsets.all(10.0)),
-                TextForm(text: "Poste : "),
-                DropdownButtonWidget(listType: listPoste, controleur: posteController,),
                 Padding(padding: EdgeInsets.all(10.0)),
               ],
             ),
@@ -103,7 +68,10 @@ class _Update extends State<Update> {
                     side: const BorderSide(color: Colors.black, width: 2)
                 ),
               ),
-              onPressed: () {Navigator.pop(context);},
+              onPressed: () {
+                Sqlite.updateMatch(model!.id, dateController.text, int.parse(matchController.text), heureController.text);
+                Navigator.pop(context);
+                },
               child: const Text("Soumettre", style: TextStyle(color: Colors.black, fontSize: 20.0)),
             ),
             Padding(padding: EdgeInsets.all(5.0)),
